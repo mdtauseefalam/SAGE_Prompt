@@ -1,7 +1,7 @@
 # SAGE Prompt
 SAGE-Prompt (Semantic- Aware Graph Enhanced Prompting), a novel prompting technique that enriches LLM reasoning with structured semantic representations, including Control Flow Graphs (CFG), Call Graphs (CG), and Data Dependency (DD), represented as text for Solidity vulnerability detection.
 The SAGE Prompt construction is done in three parts:
-1. Graph Construction and Encoding
+1. Graph Construction and Encoding: The GaraphAnalyzer_Encoder.ipynb contains the code for graph construction and encode it into a form understandable by large language models.
 2. Example Retrieval
 3. Merging and Prompt Construction
 
