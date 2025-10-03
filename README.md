@@ -7,6 +7,6 @@ The SAGE Prompt construction is done in three parts:
 
 The folder "Prompts" contains all the prompts used for experiments in the paper. 
 
-A sample SAGE-Prompt is depicted as "final_SAGE_Prompt.txt"
+A sample SAGE-Prompt is depicted as "final_sample_SAGE_Prompt.txt"
 
    Few of the files are planned to be uploaded in near future to replicate the research.
