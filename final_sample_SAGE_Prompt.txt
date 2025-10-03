@@ -1,0 +1,106 @@
+You are an excellent smart contract vulnerability detector. 
+Analyze the smart contract provided after [Solidity Code], written in Solidity.
+Additional semantic context is included via its Control Flow Graph [CFG], Call Graph
+[CG], and Data Dependency [DD]. Reference examples of similar vulnerabilities are
+given under [<Vulnerability Type> Example] to support your reasoning. Determine:
+(a) Is the contract vulnerable? (Yes or No) and (b) If yes, specify the vulnerability type (e.g.,
+Reentrancy, Arithmetic, etc.)
+
+Your Answer: {Vulnerability: ⟨Yes/No⟩, Vulnerability Type: ⟨Reentrancy/Arithmetic/...⟩}
+
+[Solidity Code]
+/*
+ * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
+ * @author: Suhabe Bugrara
+ */
+
+pragma solidity ^0.4.19;
+
+contract ReentrancyDAO {
+    mapping (address => uint) credit;
+    uint balance;
+
+    function withdrawAll() public {
+        uint oCredit = credit[msg.sender];
+        if (oCredit > 0) {
+            balance -= oCredit;
+            bool callResult = msg.sender.call.value(oCredit)();
+            require (callResult);
+            credit[msg.sender] = 0;
+        }
+    }
+
+    function deposit() public payable {
+        credit[msg.sender] += msg.value;
+        balance += msg.value;
+    }
+}
+
+[CFG]
+CFG_Deposit:
+
+N0: ENTRY_POINT 0
+N1: credit[msg.sender] += msg.value
+N2: balance += msg.value
+
+Paths in CFG_Deposit:
+
+N0->N1->N2
+
+----------------------------------------
+
+CFG_Withdrawall:
+
+N0: ENTRY_POINT 0
+N1: oCredit = credit[msg.sender]
+N2: oCredit > 0
+N3: balance -= oCredit
+N4: callResult = msg.sender.call.value(oCredit)()
+N5: require(bool)(callResult)
+N6: credit[msg.sender] = 0
+N7: END_IF 7
+
+Paths in CFG_Withdrawall:
+
+N0->N1->N2->N3->N4->N5->N6->N7 [N2=True]
+N0->N1->N2->N7 [N2=False]
+
+----------------------------------------
+
+[CG]
+CG_ReentrancyDAO:
+
+CG(withdrawAll, require(bool))
+CG(deposit, )
+
+[DD]
+DD_ReentrancyDAO:
+  credit: credit, msg.value
+  balance: balance, credit, msg.value, oCredit
+
+DD_withdrawAll:
+  oCredit: credit
+  callResult: credit, msg.sender, oCredit
+  ReentrancyDAO.credit: credit
+  ReentrancyDAO.balance: balance, credit, oCredit
+
+DD_deposit:
+  ReentrancyDAO.credit: credit, msg.value
+  ReentrancyDAO.balance: balance, msg.value
+
+[Reentrancy Example]
+function claimReward_re_ent4() public {        
+        
+        require(redeemableEther_re_ent4[msg.sender] > 0);
+        uint transferValue_re_ent4 = redeemableEther_re_ent4[msg.sender];
+        msg.sender.transfer(transferValue_re_ent4);   
+        redeemableEther_re_ent4[msg.sender] = 0;
+    }
+
+[Arithmetic Example]
+function withdrawFunds_re_ent31 (uint256 _weiToWithdraw) public {
+        require(balances_re_ent31[msg.sender] >= _weiToWithdraw);
+        require(msg.sender.send(_weiToWithdraw));
+        balances_re_ent31[msg.sender] -= _weiToWithdraw;
+    }
+
