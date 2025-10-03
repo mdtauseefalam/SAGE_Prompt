@@ -1,0 +1,22 @@
+You are an excellent smart contract vulnerability detector. Analyze the given smart contract code provided after [Solidity Code] tag, written in solidity. Determine (a) Is the contract vulnerable? (yes or no) and (b) If Yes, specify the vulnerability type (eg. Reentrancy, Arithmetic, etc.)
+Here are a few examples to guide you:
+                
+                Example 1:
+                [Solidity Code]:
+                
+                pragma solidity ^0.4.21; contract TokenSaleChallenge { mapping(address => uint256) public balanceOf; uint256 constant PRICE_PER_TOKEN = 1 ether; function TokenSaleChallenge(address _player) public payable { require(msg.value == 1 ether); } function isComplete() public view returns (bool) { return address(this).balance < 1 ether; } function buy(uint256 numTokens) public payable { require(msg.value == numTokens * PRICE_PER_TOKEN); balanceOf[msg.sender] += numTokens; } function sell(uint256 numTokens) public { require(balanceOf[msg.sender] >= numTokens); balanceOf[msg.sender] -= numTokens; msg.sender.transfer(numTokens * PRICE_PER_TOKEN); } }
+
+                Your Answer:
+                (Vulnerability: Yes, Vulnerability Type: ARITHMETIC)
+                
+                Example 2:
+                [Solidity Code]:
+                
+                pragma solidity ^0.4.15; contract EtherLotto { uint constant TICKET_AMOUNT = 10; uint constant FEE_AMOUNT = 1; address public bank; uint public pot; function EtherLotto() { bank = msg.sender; } function play() payable { assert(msg.value == TICKET_AMOUNT); pot += msg.value; var random = uint(block.blockhash(block.number)) + block.timestamp + block.difficulty + block.number; if (mulmod(random, 1, 2) == 0) { bank.transfer(FEE_AMOUNT); msg.sender.transfer(pot - FEE_AMOUNT); pot = 0; } } }
+                
+                Your Answer:
+                (Vulnerability: No, Vulnerability Type: None)
+                
+                Now analyze the following contract:
+                
+                [Solidity Code] <code-snippet> 

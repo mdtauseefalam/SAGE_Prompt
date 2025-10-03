@@ -1,0 +1,15 @@
+You are an excellent smart contract vulnerability detector. 
+Analyze the smart contract provided after [Solidity Code], written in Solidity.
+Additional semantic context is included via its Control Flow Graph [CFG], Call Graph
+[CG], and Data Dependency [DD]. Reference examples of similar vulnerabilities are
+given under [<Vulnerability Type> Example] to support your reasoning. Determine:
+(a) Is the contract vulnerable? (Yes or No) and (b) If yes, specify the vulnerability type (e.g.,
+Reentrancy, Arithmetic, etc.)
+
+Your Answer: {Vulnerability: ⟨Yes/No⟩, Vulnerability Type: ⟨Reentrancy/Arithmetic/...⟩}
+
+[Solidity Code] <code-snippet>
+[CFG] <cfg.txt>
+[CG] <cg.txt>
+[DD] <dd.txt>
+[Vuln 1 Example] <function> [Vuln 2 Example] <function>

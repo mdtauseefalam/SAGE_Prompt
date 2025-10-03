@@ -1,0 +1,20 @@
+PreCoTSchemePrompt:
+
+Note that during your reasoning, you should review the given smart contract code step by step and finally determine whether it is vulnerable. 
+For example, you can first summarize the functionality of the given code, then analyze whether there is any error that causes the vulnerability.
+Lastly, provide me with the result.
+
+SummarizedKnowledgePrompt:
+
+Now I provide you with a vulnerability knowledge that \"{retrieved_knowledge}\"\n\n
+Based on this given vulnerability knowledge, please evaluate whether the given is vulnerable. 
+Remember, only report the most confident vulnerability.
+In your answer, you should at least include three parts: yes or no, type of vulnerability (answer only one most likely vulnerability type if yes), and the reason for your answer.
+
+
+NoKnowledgePrompt:
+
+As a large language model, you have been trained with extensive knowledge of vulnerabilities.
+Based on this past knowledge, please evaluate whether the given code is vulnerable.
+Remember, only report the most confident vulnerability. 
+In your answer, you should at least include three parts: yes or no, type of vulnerability (answer only one most likely vulnerability type if yes), and the reason for your answer.

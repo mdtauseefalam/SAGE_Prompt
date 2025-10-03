@@ -1,0 +1,25 @@
+Binary prompt: You are a smart contract auditor. Review
+the following smart contract code in detail. Is the contract
+vulnerable to {vul type}? Reply with YES or NO only. {contract code}
+
+
+Multi-class prompt: You are a smart contract auditor.
+Here are {n} vulnerabilities: {vul type1, vul type2, ...,
+vul typen}. Review the following smart contract code in
+detail. Use 0 or 1 to indicate the presence of specific types
+of vulnerabilities, such as {vul type1: 0, vul type2: 1, ...,
+vul typen: 0}. {contract code}
+
+
+Auditor prompt: You are a smart contract auditor, identify and explain severe vulnerabilities in the provided
+smart contract, ensuring they are real-world exploitable
+and beneficial to attackers. Include reasoning and corresponding function code as well. Output up to {m} most
+severe vulnerabilities. If no vulnerabilities are detected,
+output “null”. {contract code} Remember your output should adhere to the following
+format: {json format}.
+
+Critic prompt: As a meticulous and harsh critic, your
+duty is to scrutinize the function and evaluate the identified vulnerabilities and reasonings with scores in terms
+of correctness, severity and profitability. Your criticism
+should include an explanation for your scoring.{output of auditors}Remember your output should adhere to the following
+format: {json format}.
