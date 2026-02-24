@@ -1,5 +1,5 @@
 # SAGE Prompt
-SAGE-Prompt, a new Semantic-Aware Graph-Enhanced prompting technique to improve the performance of LLMs in Solidity vulnerability detection. SAGE-Prompt introduces two key mechanisms: semantic-enriched context specification, which helps LLMs interpret execution semantics encoded in graphs, and semantic example retrieval, which enriches prompts with similar vulnerable contract patterns. Together, these mechanisms guide LLMs on both ``what to analyze'' and ``how to inference'' about potential exploits.
+SAGE-Prompt, a new Semantic-Aware Graph-Enhanced prompting technique to improve the performance of LLMs in Solidity vulnerability detection. SAGE-Prompt introduces two key mechanisms: semantic-enriched context specification, which helps LLMs interpret execution semantics encoded in graphs, and semantic example retrieval, which enriches prompts with similar vulnerable contract patterns. Together, these mechanisms guide LLMs on both ``what to analyze`` and ``how to inference`` about potential exploits.
 
 The SAGE Prompt construction is done in three parts:
 1. Graph Construction and Encoding: The GaraphAnalyzer_Encoder.ipynb contains the code for graph construction and encode it into a form understandable by large language models.
